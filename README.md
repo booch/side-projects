@@ -43,13 +43,6 @@ Open Source Contributions
 	* Like CoffeeScript and Crystal have
 	* I can't see any issues with adding this feature
 	* Great for simplifying initializers
-* Actors, based on Ruby Concurrency actors
-	*  `define_message :message_name do |*args|`
-	* Add a `method_defined` hook to ensure no methods are added
-	    * Better yet, use it to transform methods into messages
-	* Call with `actor.method_name!` to fire and forget
-	* Call with `actor.method_name(*args)` to wait
-	* Add checking to ensure we don't do what we're not supposed to
 
 
 ### Rails
@@ -82,6 +75,33 @@ And something similar for `Metrics/AbcSize`, which doesn't stricty count lines.
         * Adding to an item nested within hashes
         * Need these for:
         	* Disabling Ctrl+Up/Down to allow their use in Atom
+
+
+### Atom
+
+* YAML
+    * Uppercase TRUE/FALSE should be keywords
+        * YAML 1.2 only supports lowercase
+        * YAML 1.0 and 1.1 don't actually define any schema
+        * Ansible documents allowing `yes`, `no`, `true`, and `false` in lower, upper, or title case
+            * docs.ansible.com/ansible/YAMLSyntax.html
+* Ruby refactoring
+* Multi-preview
+    * Look at file type, decide how to do a "Preview" of the file
+    * Use it for "Show Preview" in my Touch Bar config
+
+
+### Remark
+
+* Add a mode that doesn't do the Markdown-to-HTML conversion
+    * So I can provide my own slides already converted to HTML
+* Presenter mode enhancements
+    * Add current time
+    * Add progress bar for number of slides down
+    * Add progress bar for time elapsed (it they specify time allotted)
+    * Add a cool tele-prompter mode
+    * My re-arrangement of the sections
+* Slide transitions
 
 
 Servers
@@ -124,15 +144,70 @@ Servers
     ~~~
 
 
-Atom
-----
+HTML Slide Show Builder
+-----------------------
 
-* YAML
-    * Uppercase TRUE/FALSE should be keywords
-        * YAML 1.2 only supports lowercase
-        * YAML 1.0 and 1.1 don't actually define any schema
-        * Ansible documents allowing `yes`, `no`, `true`, and `false` in lower, upper, or title case
-            * docs.ansible.com/ansible/YAMLSyntax.html
+* Name:
+    * Slide-Splitter
+    * Slider
+    * Slide-Shower
+* Update Remark to add a mode that doesn't do the Markdown-to-HTML conversion
+    * If that's not accepted upstream, crete my own fork
+        * Call it Remarkable Player
+        * Rip out all the JavaScript Markdown stuff
+* Split on `---` lines, send each to Markdown parser
+	* Can configure to split on something else
+* Each slide is a `section class="slide"` by default
+* All slides go inside an `article class="slideshow slides"`
+	* That can be in a template
+		* Template specifies where slides go: `<%= yield :slide %>`
+			* Or `{{slide}}`
+* Allow user to specify different Markdown add-ons
+	* To interpret things that various other Markdown slideshows support
+		* Start with just preset for the stuff I'm using from Remark
+			* `???` for presenter notes
+		*  `^` for presenter notes
+    * Probably use Python Markdown parser, instead of Ruby's Kramdown
+        * Supports extensions, with lots available
+	* Way to specify background image
+		* Fitting the image (full-height, full-width, stretch-to-fit)
+		* Positioning the image
+		* Effects on the image (fading, black-and-white, blurring, etc.)
+	* Way to specify background color
+		* Various gradient options
+	* Way to specify slide configuration (classes)
+	* SVG parser (from fenced code block with `svg eval`)
+	* Mermaid parser (from fenced code block with `mermaid eval`)
+		* And PlantUML
+		* And ditaa
+	* Tables
+	* Footnotes / endnotes
+	* Definition lists
+	* Emoji substitution (Slack style)
+	* Attribute lists (like Maruku and Python-Markdown extension)
+	* Asides / admonitions (warning, info, etc)
+		* Presenter notes should really be done using this
+        * I feel like using quote syntax is the way to go
+            * We'd need to specify a "type" though
+	* Code "blocks" from external files
+		* Allow specifying filename and optionally, line numbers
+	* Code block features
+		* Line numbering
+		* Highlighting specific lines
+		* Highlighting specific pieces of code
+			* Different highlight colors, like I used for HTTP requests/responses
+	* Overlaying arrows and such on top of images, code, etc
+* Handle everything that all the other Markdown slide generators support
+	* Headers / footers
+		* Current page / total pages
+		* Arbitrary text / HTML
+	* Background image, text in front, with translucency masking
+		* Filters on background images
+* Can also output slides to PDF
+	* With or without presenter notes
+		* Default to landscape when not printing notes
+		* Default to portrait when printing notes
+			* Slide in landscape (with a border by default), notes below that
 
 
 Web Dev
@@ -240,7 +315,6 @@ iOS Keyboard
 * https://github.com/wyndwarrior/iSwipe
 
 
-
 Ruby Measurements Library
 -------------------------
 
@@ -250,3 +324,16 @@ Ruby Measurements Library
     * Should probably make that `exact: false`
 	* Allow querying results for `exact?`
 	* Might also happen with fractions
+
+
+Ruby Actors
+-----------
+
+* Based on Ruby Concurrency actors
+    *  `define_message :message_name do |*args|`
+    * Add a `method_defined` hook to ensure no methods are added
+        * Better yet, use it to transform methods into messages
+    * Call with `actor.method_name!` to fire and forget
+    * Call with `actor.method_name(*args)` to wait
+    * Add checking to ensure we don't do what we're not supposed to
+
