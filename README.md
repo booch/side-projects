@@ -23,7 +23,6 @@ Open Source Contributions
               end
             end
         ~~~
-
         * Kind of like a lens, but not really
             * We don't really need lenses in Ruby, due to OOP
     * Created a gem to test the changes
@@ -34,6 +33,16 @@ Open Source Contributions
     * Can make a gem to test it
         * Maybe that'll also be the long-term solution, instead of getting the change into Ruby itself
     * Make the same changes to `Class#instance_methods`
+* Add feature to automatically set instance variables
+    ~~~ ruby
+    class Point
+      attr_reader :x, :y
+	  def initialize(@x, @y); end
+    end
+    ~~~
+	* Like CoffeeScript and Crystal have
+	* I can't see any issues with adding this feature
+	* Great for simplifying initializers
 * Actors, based on Ruby Concurrency actors
 	*  `define_message :message_name do |*args|`
 	* Add a `method_defined` hook to ensure no methods are added
