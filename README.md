@@ -39,6 +39,7 @@ Open Source Contributions
     * Can make a gem to test it
         * Maybe that'll also be the long-term solution, instead of getting the change into Ruby itself
     * Make the same changes to `Class#instance_methods`
+    * See http://booch.github.io/presentations/Booleans_Are_Easy/slides.html#p21
 * Add feature to automatically set instance variables
     ~~~ ruby
     class Point
