@@ -59,6 +59,11 @@ Open Source Contributions
         * https://github.com/rails/rails/commit/d92c4a84023bc0c8dd75869c9b4d5e50277f4650
     * https://github.com/rails/rails/blob/master/activerecord/lib/active_record/relation/finder_methods.rb#L68
 * Add easy `LIKE` and `ILIKE` support to ActiveRecord
+    ~~~ ruby
+    def where_like(key, value) # Should really take a pair, not separate key and value. TODO: What about multiple keys/values?
+      where(arel_table[key.to_sym].matches("%#{sanitize_sql_like(value)}%")) # TODO: Allow regexes. Check need for leading/trailing `%`.
+    end
+    ~~~
     * Maybe also something to do `<`, `<=`, `>`, `>=` more easily than using ranges
 
 
