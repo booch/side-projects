@@ -9,6 +9,12 @@ Open Source Contributions
 
 ### Ruby
 
+* Allow Ranges to have a `nil` lower bound
+    * We already allow a `nil` upper bound
+    * Would be really useful for translating `<` to SQL in ActiveRecord
+    * Have to worry about completely infinite ranges (nil..nil)
+        * Have to worry about trying to iterate through one of those
+	    * Just throw a `RangeError`, like `entries` already does for semi-infinite ranges
 * [Changes to `dig`](https://github.com/booch/dig)
     * Make it more like `fetch`
         * Optional block parameter for `dig` to specify a default value
@@ -53,6 +59,7 @@ Open Source Contributions
         * https://github.com/rails/rails/commit/d92c4a84023bc0c8dd75869c9b4d5e50277f4650
     * https://github.com/rails/rails/blob/master/activerecord/lib/active_record/relation/finder_methods.rb#L68
 * Add easy `LIKE` and `ILIKE` support to ActiveRecord
+    * Maybe also something to do `<`, `<=`, `>`, `>=` more easily than using ranges
 
 
 ### RuboCop
