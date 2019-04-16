@@ -4,6 +4,61 @@ My Side Projects
 This is a place to keep my ideas for side projects that don't (yet) have their own repo.
 
 
+Servers
+-------
+
+### Migrate Everything to DIgital Ocean
+
+* Install PHP
+    * `sudo apt-get install php7.0-common php7.0-common php7.0-fpm`
+* Install DokuWiki
+* Move DokuWiki sites to Digital Ocean
+* Inatall WordPress
+* Move WordPress sites to Digital Ocean
+* Shut down old server
+* Move DokuWiki sites to Hugo
+* Remove DokuWiki
+* Move WordPress sites to Hugo
+* Remove WordPress
+* Remove PHP
+
+### BoochTek and Personal Sites
+
+* Move SSH port
+    * Studies show 1000x decrease in login attempts
+
+
+### Nginx Configs
+
+* Re-write my Lua code to do short-URL redirects more easily
+    * Use a flat-file to store all the short URLs and the long URLs they expand to
+* Add rate limiting
+    ~~~ nginx
+    # We're in the `http` section here.
+    # Limit to 10 reqs/s on average (over 60 seconds), with bursts up to 100 requests/second, and 5 MB cache.
+    limit_req_zone $binary_remote_addr zone=rate_limit:5m rate=10r/s;
+    limit_req zone=rate_limit burst=10; # This can also go in server or location sections.
+    ~~~
+* Add a snippet for reverse proxying
+    ~~~ nginx
+    # We're in the `http` section here.
+    upstream my_app {
+        server http://localhost:3000;
+        #server unix:///var/run/my_app.sock;
+    }
+    server {
+        ...
+        set $app http://my_app; # Can also use http://localhost:3000 if you don't want an `upstream` section
+        location / {
+            proxy_pass $app;
+            proxy_redirect off;
+            proxy_set_header Host $http_host;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+    }
+    ~~~
+
+
 Open Source Contributions
 -------------------------
 
@@ -115,46 +170,6 @@ And something similar for `Metrics/AbcSize`, which doesn't stricty count lines.
     * Add a cool tele-prompter mode
     * My re-arrangement of the sections
 * Slide transitions
-
-
-Servers
--------
-
-### BoochTek and Personal Sites
-
-* Move SSH port
-    * Studies show 1000x decrease in login attempts
-
-
-### Nginx Configs
-
-* Re-write my Lua code to do short-URL redirects more easily
-    * Use a flat-file to store all the short URLs and the long URLs they expand to
-* Add rate limiting
-    ~~~ nginx
-    # We're in the `http` section here.
-    # Limit to 10 reqs/s on average (over 60 seconds), with bursts up to 100 requests/second, and 5 MB cache.
-    limit_req_zone $binary_remote_addr zone=rate_limit:5m rate=10r/s;
-    limit_req zone=rate_limit burst=10; # This can also go in server or location sections.
-    ~~~
-* Add a snippet for reverse proxying
-    ~~~ nginx
-    # We're in the `http` section here.
-    upstream my_app {
-        server http://localhost:3000;
-        #server unix:///var/run/my_app.sock;
-    }
-    server {
-        ...
-        set $app http://my_app; # Can also use http://localhost:3000 if you don't want an `upstream` section
-        location / {
-            proxy_pass $app;
-            proxy_redirect off;
-            proxy_set_header Host $http_host;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        }
-    }
-    ~~~
 
 
 HTML Slide Show Builder
