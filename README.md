@@ -114,6 +114,8 @@ Open Source Contributions
     * Has been this way for *years* (2009, when `AR::Relation#find` was added)
         * https://github.com/rails/rails/commit/d92c4a84023bc0c8dd75869c9b4d5e50277f4650
     * https://github.com/rails/rails/blob/master/activerecord/lib/active_record/relation/finder_methods.rb#L68
+* Refactor long `case` statements to hashes
+    * See `railties/lib/rails/generators/generated_attribute.rb` for some prime examples
 * Add easy `LIKE` and `ILIKE` support to ActiveRecord
     ~~~ ruby
     def where_like(key, value) # Should really take a pair, not separate key and value. TODO: What about multiple keys/values?
