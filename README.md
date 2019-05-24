@@ -111,6 +111,7 @@ Open Source Contributions
         * Maybe that'll also be the long-term solution, instead of getting the change into Ruby itself
     * Make the same changes to `Class#instance_methods`
     * See http://booch.github.io/presentations/Booleans_Are_Easy/slides.html#p21
+* Could we turn the JIT into an AOT compiler for Ruby?
 
 
 ### Rails
