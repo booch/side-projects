@@ -70,6 +70,9 @@ Open Source Contributions
     * Have to worry about completely infinite ranges (nil..nil)
         * Have to worry about trying to iterate through one of those
 	    * Just throw a `RangeError`, like `entries` already does for semi-infinite ranges
+* Fix Array and String (and maybe Hash) before to allow them to be subclassed
+    * Biggest fix would be using `self.class.new` whenever the internals need to create a new Array or String
+    * Will take a lot of work, and will likely have to be done in C
 * [Changes to `dig`](https://github.com/booch/dig)
     * Make it more like `fetch`
         * Optional block parameter for `dig` to specify a default value
@@ -88,13 +91,6 @@ Open Source Contributions
             * We don't really need lenses in Ruby, due to OOP
     * Created a gem to test the changes
         * Maybe that'll also be the long-term solution, instead of getting the change into Ruby itself
-* Change `#methods` to take a `superclass_methods` named parameter, where it now takes a Boolean
-    * Allow for backwards compatibility
-    * Also allow a mode where it subtracts out all methods from Object.new
-    * Can make a gem to test it
-        * Maybe that'll also be the long-term solution, instead of getting the change into Ruby itself
-    * Make the same changes to `Class#instance_methods`
-    * See http://booch.github.io/presentations/Booleans_Are_Easy/slides.html#p21
 * Add feature to automatically set instance variables
     ~~~ ruby
     class Point
@@ -105,6 +101,13 @@ Open Source Contributions
 	* Like CoffeeScript and Crystal have
 	* I can't see any issues with adding this feature
 	* Great for simplifying initializers
+* Change `#methods` to take a `superclass_methods` named parameter, where it now takes a Boolean
+    * Allow for backwards compatibility
+    * Also allow a mode where it subtracts out all methods from Object.new
+    * Can make a gem to test it
+        * Maybe that'll also be the long-term solution, instead of getting the change into Ruby itself
+    * Make the same changes to `Class#instance_methods`
+    * See http://booch.github.io/presentations/Booleans_Are_Easy/slides.html#p21
 
 
 ### Rails
