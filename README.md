@@ -101,6 +101,9 @@ Open Source Contributions
 	* Like CoffeeScript and Crystal have
 	* I can't see any issues with adding this feature
 	* Great for simplifying initializers
+* Could we add `each` to `Object` and `NilClass` and make them `Enumerable`?
+    * For `NilClass`, it'd just be a no-op, same as an empty Array
+    * The default for `Object` would to be to just call the block with `self`
 * Change `#methods` to take a `superclass_methods` named parameter, where it now takes a Boolean
     * Allow for backwards compatibility
     * Also allow a mode where it subtracts out all methods from Object.new
@@ -132,7 +135,7 @@ Open Source Contributions
 
 * Add an option to `Metrics` cops to ignore (or better yet, treat as `n` lines) hashes when counting lines.
 And something similar for `Metrics/AbcSize`, which doesn't stricty count lines.
-* Add a RuboCop-RSPec rule to complain about `expect(subject).to raise_error`
+* Add a RuboCop-RSpec rule to complain about `expect(subject).to raise_error`
     * Should be `expect{ subject }.to raise_error`
     * Would be nice for RSpec to catch it as well
 
